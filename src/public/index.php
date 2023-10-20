@@ -1,2 +1,2 @@
 <?php
-echo 'Welcome TECH QUEST!';
+echo 'PHP Template';

@@ -1,11 +1,9 @@
-#!/bin/bash
-
 PWD=$(cd $(dirname $0) && pwd)
 
 # Create Network
-COUNT_DOCKER_NETWORK="$(docker network ls -f name=tq-docker-template -q | wc -l | sed 's/^[ \t]*//')"
+COUNT_DOCKER_NETWORK="$(docker network ls -f name=php-template -q | wc -l | sed 's/^[ \t]*//')"
 if [ $COUNT_DOCKER_NETWORK != "1" ]; then
-    docker network create tq-docker-template
+    docker network create php-template
 fi
 
 # Install node_modules
@@ -19,4 +17,4 @@ if [ ! -d "$PWD/src/vendor" ]; then
     $PWD/composer.sh --ignore-platform-reqs install
 fi
 
-docker-compose -p tq-docker-template -f $PWD/.local/docker-compose-local/docker-compose.yml $@
+docker-compose -p php-template -f $PWD/.local/docker-compose-local/docker-compose.yml $@

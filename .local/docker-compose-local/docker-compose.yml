@@ -12,7 +12,7 @@ services:
       - $PWD/src:/var/www/html
       - $PWD/docker-images/nginx/default.conf:/etc/nginx/conf.d/default.conf
     networks:
-      - tq-docker-template
+      - php-template
     depends_on:
       - php
 
@@ -21,7 +21,7 @@ services:
     volumes:
       - $PWD/src:/var/www/html
     networks:
-      - tq-docker-template
+      - php-template
 
   mysql:
     platform: linux/x86_64
@@ -32,7 +32,7 @@ services:
       - MYSQL_ROOT_PASSWORD=password
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-time-zone='Asia/Tokyo' --secure-file-priv="/docker-entrypoint-initdb.d"
     networks:
-      - tq-docker-template
+      - php-template
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -48,11 +48,11 @@ services:
     volumes:
       - /sessions
     networks:
-      - tq-docker-template
+      - php-template
     depends_on:
       - mysql
 
 networks:
-  tq-docker-template:
+  php-template:
     external:
-      name: tq-docker-template
+      name: php-template
